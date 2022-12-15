@@ -65,7 +65,7 @@ public class PlayerControler : MonoBehaviour
 
         if (IsGrounded)
         {
-            rigBody.AddForce(Vector2.up * jump * jumpHight);
+            rigBody.AddForce(Vector2.up * jump * jumpHight, ForceMode2D.Impulse);
         }
     }
 
