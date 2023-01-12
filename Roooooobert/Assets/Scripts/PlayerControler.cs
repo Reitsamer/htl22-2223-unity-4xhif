@@ -42,7 +42,7 @@ public class PlayerControler : MonoBehaviour
         //Left/Right
         x = Input.GetAxis("Horizontal");
 
-        Vector2 currentScale = transform.localScale;
+        /*Vector2 currentScale = transform.localScale;
 
         if (x < 0)
         {
@@ -53,7 +53,13 @@ public class PlayerControler : MonoBehaviour
             currentScale.x = 1;
         }
 
-        transform.localScale = currentScale;
+        transform.localScale = currentScale;*/
+
+        if (x < 0)
+            GetComponent<SpriteRenderer>().flipX = true;
+        else if (x > 0)
+            GetComponent<SpriteRenderer>().flipX = false;
+            
 
         rigBody.velocity = Vector2.right * x * speed * Time.fixedDeltaTime;
 
