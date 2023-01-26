@@ -19,7 +19,7 @@ public class PlayerControler : MonoBehaviour
 
     [SerializeField, Range(100,1000)]
     private int speed = 400;
-    [SerializeField, Range(100, 1000)]
+    [SerializeField]
     private int jumpHight = 400;
 
     private float x;
@@ -59,9 +59,11 @@ public class PlayerControler : MonoBehaviour
             GetComponent<SpriteRenderer>().flipX = true;
         else if (x > 0)
             GetComponent<SpriteRenderer>().flipX = false;
-            
 
-        rigBody.velocity = Vector2.right * x * speed * Time.fixedDeltaTime;
+
+        var velocity = rigBody.velocity;
+        velocity.x = x * speed * Time.fixedDeltaTime;
+        rigBody.velocity = velocity;
 
         animator.SetInteger("Speed", Mathf.Abs(x) < 0.5 ? 0 : 1);
 
@@ -71,7 +73,13 @@ public class PlayerControler : MonoBehaviour
 
         if (IsGrounded)
         {
-            rigBody.AddForce(Vector2.up * jump * jumpHight, ForceMode2D.Impulse);
+            if (jump > 0.5)
+            {
+                Debug.Log(jump);
+                rigBody.AddForce(Vector2.up * jumpHight, ForceMode2D.Impulse);
+                
+                
+            }
         }
     }
 
